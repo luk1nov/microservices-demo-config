@@ -1,0 +1,23 @@
+server:
+  port: 9191
+eureka:
+  instance:
+    client:
+      serviceUrl:
+        defaultZone: http://localhost:8761/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+spring:
+  cloud:
+    gateway:
+      routes[0]:
+        id: user-service
+        uri: lb://user-service
+        predicates[0]: "Path=/api/users/**"
+      routes[1]:
+        id: department-service
+        uri: lb://department-service
+        predicates[0]: "Path=/api/departments/**"
